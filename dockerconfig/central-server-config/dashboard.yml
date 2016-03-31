@@ -1,0 +1,4 @@
+turbine:
+    aggregator:
+        clusterConfig: GATEWAY
+    appConfig: gat

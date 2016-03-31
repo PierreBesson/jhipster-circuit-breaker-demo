@@ -1,0 +1,20 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "age",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20160331114743",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "bar",
+    "pagination": "no",
+    "microserviceName": "app1",
+    "searchEngine": "no"
+}

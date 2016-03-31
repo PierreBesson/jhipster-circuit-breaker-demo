@@ -1,0 +1,11 @@
+version: '2'
+services:
+    jhipster-dashboard:
+        image: jhipster/jhipster-dashboard
+        external_links:
+            - jhipster-registry:registry
+        ports:
+            - 8762:8762
+        environment:
+            - SPRING_CLOUD_CONFIG_URI=http://registry:8761/config
+            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka

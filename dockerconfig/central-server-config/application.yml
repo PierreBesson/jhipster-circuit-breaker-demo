@@ -1,0 +1,10 @@
+#common configuration shared between all applications
+configserver:
+    status: ${spring.cloud.config.uri}/${spring.cloud.config.label}/${spring.cloud.config.name}-${spring.cloud.config.profile}.yml/
+jhipster:
+    security:
+        authentication:
+            jwt:
+                secret: 14d16db32ce85be70f75b8bc4f27db11f665cda3
+    swagger:
+        enabled: true

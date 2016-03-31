@@ -9,12 +9,12 @@ Using Spring Cloud, Netflix Feign, Hystrix dashboard...
 ## Setup
 
 Run the JHipster Registry and Dashboard
-
-	docker-compose -f dockerconfig/jhipster-dashboard.yml up
 	
-    docker-compose -f dockerconfig/jhipster-registry.yml up
+    docker-compose -f dockerconfig/jhipster-registry.yml up -d
+    
+    docker-compose -f dockerconfig/jhipster-dashboard.yml up -d
 
-In gat and app1 directory, launch apps with:
+In the gateway and app1 directory, launch apps with:
 
 	mvn
 

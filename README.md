@@ -4,13 +4,7 @@ Using Spring Cloud, Netflix Feign, Hystrix dashboard...
 
 # Architecture
 
-+---------+        +---------+                +-------------+         +-----------+
-| Browser <--------> Gateway +-----REST Call--> Microservice<--------->Database   |
-+---------+        |         <----------------+             |         |- Foo Table|
-                   |         +--+             | App1        |         |- Bar Table|
-                   |         |  Circuit       | - Foo entity|         +-----------+
-                   |         <--Breaker       | - Bar entity|
-                   +---------+                +-------------+
+![Architecture](architecture.png)
 
 # Setup
 

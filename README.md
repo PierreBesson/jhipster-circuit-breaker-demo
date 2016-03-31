@@ -1,38 +1,38 @@
-JHipster Circuit Breaker Demo
+# JHipster Circuit Breaker Demo
 
 Using Spring Cloud, Netflix Feign, Hystrix dashboard...
 
-# Architecture
+## Architecture
 
 ![Architecture](architecture.png)
 
-# Setup
+## Setup
 
 Run the JHipster Registry and Dashboard
 
 	docker-compose -f dockerconfig/jhipster-dashboard.yml up
-        docker-compose -f dockerconfig/jhipster-registry.yml up
+	
+    docker-compose -f dockerconfig/jhipster-registry.yml up
 
 In gat and app1 directory, launch apps with:
 
 	mvn
 
-Once everything is correctly started, open the hystrix dashboard on [http://localhost:8762/](http://localhost:8762/) and point it to the gateway `/hystrix.stream` endpoint to monitor its circuit breakers.
+Once everything is correctly started, open the Hystrix dashboard on [http://localhost:8762/](http://localhost:8762/) and point it to the gateway `/hystrix.stream` endpoint to monitor its circuit breakers.
 
-But it using localhost:8080 as URL won't work, the jhipster-dashboard being located inside a docker container it cannot access localhost. Instead first identify the jhipster-dashboard container ID with `docker ps` then the host IP as seen by docker with `docker inspect containerId |grep \"Gateway`. On my machine the correct URL to input was `172.25.0.1:8080/hystrix.stream`.
+Be careful, using localhost:8080 as an URL here won't work. Because the jhipster-dashboard is run inside a docker container it cannot access localhost. Instead first identify the jhipster-dashboard container ID with `docker ps` then the host IP as seen by docker with `docker inspect containerId |grep \"Gateway`. On my machine the correct URL to input was `172.25.0.1:8080/hystrix.stream`.
 
-# Test it
+## Experiment
 
 Once you have started everything, open the gateway on [http://localhost:8080](http://localhost:8080) and add some sample foos and bars using the Entities tab.
 
-Behind the scenes, the gateway is forwarding requests to the app1 microservice.
-This is the classic way of calling a microservice by routing the calls through a Zuul proxy. This way is fine in most cases and will efficiently load balance between the services instances, however it doesn't handle failure of a microservice.
+Behind the scenes, the gateway is forwarding requests to the app1 microservice on which a Foo and Bar entities were generated.
+This is the classic way of calling a microservice by routing the calls through a Zuul proxy. This way is fine in most cases and will efficiently load balance between service instances if you want to scale them, however it doesn't handle failure of a microservice.
 
-To try out a fallback open Swagger UI: [http://localhost:8080/#/docs](http://localhost:8080/#/docs) and stay on the default API.
-There you can use try out endpoints under Foo Ressource and Bar ressource. Those can be used to do CRUD operations on the microservice's Foo and Bar entity. However if the service is unavailable or respond with an error it will trigger the fallback.
+To try out a fallback open Swagger UI: [http://localhost:8080/#/docs](http://localhost:8080/#/docs) and do some calls on the "default" API (this corresponds to the Gateway's API).
+There you can use try out endpoints under Foo Ressource and Bar ressource. Those can be used to do CRUD operations on the microservice's Foo and Bar entities. However if the service is unavailable or respond with an error it will trigger the fallback.
 
 You can try to kill the app1 service and see the circuit opening in the dashboard after a number of failed request. In the meantime, you should not have received any errors in your browser as the current fallback send a 200 OK in all cases.
-
 
 # How it works
 

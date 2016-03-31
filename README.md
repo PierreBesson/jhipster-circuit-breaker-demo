@@ -34,10 +34,13 @@ There you can use try out endpoints under Foo Ressource and Bar ressource. Those
 
 You can try to kill the app1 service and see the circuit opening in the dashboard after a number of failed request. In the meantime, you should not have received any errors in your browser as the current fallback send a 200 OK in all cases.
 
+![Hystrix Dashboard](hystrix-dashboard.png)
+
 # How it works
 
 To allow execution of a fallback using the circuit breaker pattern, a REST client for the app1 microservice must be written on the gateway. This is very easily done using the Feign library and its integration in Spring Cloud. This is written as an interface like this:
 
+```
 @FeignClient(name = "app1", fallback = App1FooClientFallback.class)
 public interface App1FooClient {
 
@@ -52,9 +55,10 @@ public interface App1FooClient {
         produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<FooDTO> getFoo(@PathVariable("id") Long id);
 }
+```
 
 And the associated fallback class where you can define fallback behaviour:
-
+```
 @Component
 public class App1FooClientFallback implements App1FooClient {
 
@@ -72,7 +76,7 @@ public class App1FooClientFallback implements App1FooClient {
         return null;
     }
 }
-
+```
 You can then simply use this interface in one of your REST Controller.
 
 
